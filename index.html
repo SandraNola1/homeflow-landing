@@ -149,7 +149,7 @@
       <img src="https://images.pexels.com/photos/6697198/pexels-photo-6697198.jpeg?auto=compress&amp;w=1120&amp;h=700&amp;fit=crop&amp;dpr=1" alt="Woman doing a low-impact stretch on a yoga mat at home" loading="eager">
     </div>
 
-    <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfww_9BtCr2NAWgHu85OCOuIR2DeQlMw0VfgHsHt_vIiS_2Cw/viewform" target="_blank" rel="noopener">Get Early Access</a>
+    <a class="cta-btn js-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfww_9BtCr2NAWgHu85OCOuIR2DeQlMw0VfgHsHt_vIiS_2Cw/viewform" target="_blank" rel="noopener">Get Early Access</a>
     <div class="trust">Free to join — be the first to know when we launch</div>
   </section>
 
@@ -163,9 +163,27 @@
 
   <section class="cta-bottom wrap">
     <p>No cost, no obligation — join the waitlist below.</p>
-    <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfww_9BtCr2NAWgHu85OCOuIR2DeQlMw0VfgHsHt_vIiS_2Cw/viewform" target="_blank" rel="noopener">Get Early Access</a>
+    <a class="cta-btn js-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfww_9BtCr2NAWgHu85OCOuIR2DeQlMw0VfgHsHt_vIiS_2Cw/viewform" target="_blank" rel="noopener">Get Early Access</a>
   </section>
 </main>
+
+<script>
+  // Routes CTA clicks to a per-angle Google Form so pain/curiosity ad
+  // conversions land in separate response tabs instead of one shared form.
+  // Ad links should append ?a=pain or ?a=curiosity; unknown/missing falls
+  // back to the pain form (today's default single form).
+  (function () {
+    var FORMS = {
+      pain: "https://docs.google.com/forms/d/e/1FAIpQLSfww_9BtCr2NAWgHu85OCOuIR2DeQlMw0VfgHsHt_vIiS_2Cw/viewform",
+      curiosity: "REPLACE_WITH_CURIOSITY_FORM_URL"
+    };
+    var angle = new URLSearchParams(location.search).get("a");
+    var target = FORMS[angle] || FORMS.pain;
+    document.querySelectorAll(".js-cta").forEach(function (a) {
+      a.href = target;
+    });
+  })();
+</script>
 
 <footer>
   <div class="wrap">© 2026 HomeFlow. This is an early-access waitlist, not a purchase. <a href="privacy.html" style="color:inherit;">Privacy Policy</a></div>
